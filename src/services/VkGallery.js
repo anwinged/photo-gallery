@@ -43,7 +43,6 @@ class VkGallery
 	getStatus() {
 		return new Promise((resolve, reject) => {
 			VK.Auth.getLoginStatus((answer) => {
-				console.log('gs', answer);
 				if (answer.session && answer.status === 'connected') {					
 					this.user_id = answer.session.mid;
 					resolve(answer.session.mid);

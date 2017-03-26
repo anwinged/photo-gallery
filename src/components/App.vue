@@ -2,17 +2,8 @@
   <div id="app" class="container">
     <welcome v-if="!loggedIn" @login="onLogin"/>
     <template v-else>
-      <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">Gallery</a>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a @click.prevent="onExit" href="#">Exit</a></li>
-          </ul>
-        </div>
-      </nav>
-      <template v-if="loggedIn">        
+      <template v-if="loggedIn">
+        <navbar @logout="onLogout"/>
         <gallery :photos="photos"></gallery>
       </template>
       <template v-else>
@@ -55,7 +46,7 @@ export default {
         this.user = u;
       });
     },
-    onExit() {
+    onLogout() {
       VkGallery.logout().then(() => {
         this.user = null;
       });

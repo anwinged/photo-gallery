@@ -1,9 +1,11 @@
 <template>
   <div class="row">
-    <div class="col-md-6 box">
-      <img class="fullview" :src="photo.src_large">
+    <div class="col-md-8 box">
+      <a @click.prevent="onNext" href="#" title="Закрыть фотографию">
+        <img class="fullview" :src="source">
+      </a>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h2>{{ title }}</h2>
       <p>
         <i class="glyphicon glyphicon-heart"></i> {{ photo.likes }}
@@ -20,12 +22,18 @@ export default {
   computed: {
     title() {
       return this.photo.comment || 'Без названия';
-    }
+    },
+    source() {
+      return this.photo.src_large || this.photo.src;
+    },
   },
   methods: {
     onClose() {
       this.$emit('close');
-    }
+    },
+    onNext() {
+      this.$emit('next');
+    },
   }
 }
 </script>

@@ -53,18 +53,18 @@ class VkGallery
     })
   }
 
-  getPhotos() {
+  getPhotos(count = 50) {
     return new Promise((resolve, reject) => {
       if (this.user_id === null) {
         reject();
       }
-      const params = { owner_id: this.user_id, extended: 1 };
+      const params = { owner_id: this.user_id, extended: 1, skip_hidden: 1, count };
       VK.Api.call('photos.getAll', params, (answer) => {
           if (answer.response) {
             resolve(answer.response.slice(1).map(p => { 
               return { 
                 src: p.src_big,
-                src_large: p.src_xbig,
+                src_large: p.src_xxbig,
                 comment: p.text,
                 likes: p.likes.count,
                 timestamp: p.created,

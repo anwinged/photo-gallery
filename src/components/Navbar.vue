@@ -5,8 +5,8 @@
         <a class="navbar-brand" href="#" @click.prevent>Gallery</a>
       </div>
       <ul class="nav navbar-nav">
-        <li :class="{ active: byTime }"><a href="#" @click.prevent="orderByTime">По времени</a></li>
         <li :class="{ active: byLikes }"><a href="#" @click.prevent="orderByLikes">По лайкам</a></li>
+        <li :class="{ active: byTime }"><a href="#" @click.prevent="orderByTime">По времени</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a @click.prevent="onExit" href="#">Exit</a></li>

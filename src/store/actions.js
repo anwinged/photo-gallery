@@ -26,6 +26,6 @@ export default {
       console.log(photos);
       commit('photos', photos);
     });
-  }
+  },
 
 }

@@ -2,6 +2,9 @@
   <div>
     <a @click.prevent="onClick" href="#" class="photo thumbnail">
       <img :src="src" :title="title" :alt="alt">
+      <span class="info" v-if="item.likes">
+        <i class="glyphicon glyphicon-heart"></i> {{ item.likes }}
+      </span>
     </a>
   </div>
 </template>
@@ -35,10 +38,23 @@ export default {
 
 <style scoped>
   .photo {
-    height: 210px;  
+    height: 210px;
+    position: relative;
   }
 
   img {
     max-height: 200px;
   }
+
+  .info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 4px;
+    height: 25px;
+    text-align: right;
+    color: #333;
+  }
+
 </style>

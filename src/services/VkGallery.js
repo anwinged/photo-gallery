@@ -64,6 +64,7 @@ class VkGallery
             resolve(answer.response.slice(1).map(p => { 
               return { 
                 src: p.src_big,
+                src_large: p.src_xbig,
                 comment: p.text,
                 likes: p.likes.count,
               }; 

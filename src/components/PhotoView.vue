@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-6 box">
-      <img class="fullview" :src="photo.src">
+      <img class="fullview" :src="photo.src_large">
     </div>
     <div class="col-md-6">
       <h2>{{ title }}</h2>

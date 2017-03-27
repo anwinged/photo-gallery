@@ -13,11 +13,11 @@
 
 <script type="text/javascript">
 export default {
-	name: 'navbar',
-	methods: {
-		onExit() {
-			this.$emit('logout');
-		}
-	}
+  name: 'navbar',
+  methods: {
+    onExit() {
+      this.$emit('logout');
+    }
+  }
 }
 </script>

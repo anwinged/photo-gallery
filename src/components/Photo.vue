@@ -1,6 +1,6 @@
 <template>
 	<div>
-	  <a @click.prevent href="#" class="photo thumbnail">
+	  <a @click.prevent="onClick" href="#" class="photo thumbnail">
 	    <img :src="src" :title="title" :alt="alt">
 	  </a>
 	</div>
@@ -21,6 +21,13 @@ export default {
 		},
 		alt() {
 			return this.title;
+		}
+	},
+	methods: {
+		onClick() {
+			this.$emit('select', {
+				src: this.item.src,
+			});
 		}
 	}
 };

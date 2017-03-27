@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container">
+  <div id="app" class="application container">
     <welcome v-if="!loggedIn" @login="onLogin"/>
     <template v-else>
       <template v-if="loggedIn">
@@ -60,8 +60,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
-#app {
-  margin-top: 60px;
-}
+<style scoped>
+  .application {
+    margin-top: 60px;
+    margin-bottom: 40px;
+  }
 </style>

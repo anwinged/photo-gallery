@@ -67,6 +67,7 @@ class VkGallery
                 src_large: p.src_xbig,
                 comment: p.text,
                 likes: p.likes.count,
+                timestamp: p.created,
               }; 
             }));
           } else {

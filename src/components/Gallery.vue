@@ -15,15 +15,18 @@
 <script>
 export default {
   name: 'gallery',
-  props: ['photos'],
   data: function () {
     return {
       selected: null,
     };
   },
+  computed: {
+    photos() {
+      return this.$store.getters.orderedPhotos;
+    }
+  },
   methods: {
     onSelect(item) {
-      console.log('SELECT', item);
       const photo = this.photos.find(p => p.src === item.src);
       if (photo !== undefined) {
         this.selected = photo;
@@ -31,7 +34,7 @@ export default {
     },
     onClose() {
       this.selected = null;
-    }
+    },
   }
 }
 </script>

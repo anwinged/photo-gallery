@@ -4,7 +4,7 @@
     <template v-else>
       <template v-if="loggedIn">
         <navbar @logout="onLogout"/>
-        <gallery :photos="photos"></gallery>
+        <gallery/>
       </template>
       <template v-else>
         <a @click.prevent="onLogin" href="#">Login</a>
@@ -18,44 +18,21 @@ import VkGallery from '../services/VkGallery.js'
 
 export default {
   name: 'app',
-  data () {
-    return {
-      user: null,
-      photos: [],
-    }
-  },
   computed: {
     loggedIn() {
-      return this.user !== null;
-    }
-  },
-  watch: {
-    user() {
-      if (this.user !== null) {
-        VkGallery.getPhotos().then((photos) => {
-          console.log(photos);
-          this.photos = photos;
-        });
-      }
-    }
+      return this.$store.state.user !== null;
+    },
   },
   methods: {
     onLogin: function () {
-      VkGallery.login().then((u) => {
-        console.log(u);
-        this.user = u;
-      });
+      this.$store.dispatch('login');
     },
     onLogout() {
-      VkGallery.logout().then(() => {
-        this.user = null;
-      });
+      this.$store.dispatch('logout');
     }
   },
   created: function () {
-    VkGallery.getStatus().then((u) => {
-      this.user = u;
-    });
+    this.$store.dispatch('getStatus');
   },  
 }
 </script>

@@ -1,10 +1,12 @@
 <template>
-  <a @click.prevent="onClick" href="#" class="photo thumbnail">
-    <img :src="src" :title="title" :alt="alt">
-    <span class="info" v-if="item.likes">
-      <i class="glyphicon glyphicon-heart"></i> {{ item.likes }}
-    </span>
-  </a>
+  <div class="photo">
+    <a @click.prevent="onClick" href="#" class="photo-view thumbnail">
+      <img :src="src" :title="title" :alt="alt">
+      <span class="info" v-if="item.likes">
+        <i class="glyphicon glyphicon-heart"></i> {{ item.likes }}
+      </span>
+    </a>
+  </div>
 </template>
 
 <script>
@@ -36,6 +38,10 @@ export default {
 
 <style scoped>
   .photo {
+    display: block;
+  }
+
+  .photo-view {
     height: 210px;
     position: relative;
   }

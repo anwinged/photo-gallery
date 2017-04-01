@@ -1,16 +1,14 @@
 <template>
-  <div>
-    <a @click.prevent="onClick" href="#" class="photo thumbnail">
-      <img :src="src" :title="title" :alt="alt">
-      <span class="info" v-if="item.likes">
-        <i class="glyphicon glyphicon-heart"></i> {{ item.likes }}
-      </span>
-    </a>
-  </div>
+  <a @click.prevent="onClick" href="#" class="photo thumbnail">
+    <img :src="src" :title="title" :alt="alt">
+    <span class="info" v-if="item.likes">
+      <i class="glyphicon glyphicon-heart"></i> {{ item.likes }}
+    </span>
+  </a>
 </template>
 
 <script>
-const DEFAULT_CAPTION = 'Фоточка';
+const DEFAULT_CAPTION = 'Unknown';
 
 export default {
   name: 'photo',

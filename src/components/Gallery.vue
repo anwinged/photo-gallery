@@ -4,12 +4,12 @@
       <photo-view :photo="selected" @close="onClose" @next="onNext"/>
     </template>
     <template v-else-if="photos.length">
-      <photo v-for="p in photos" :key="p.src" :item="p" @select="onSelect" class="col-xs-6 col-md-3"></photo>
+      <photo v-for="p in photos" :key="p.src" :item="p" @select="onSelect" class="col-xs-6 col-md-3"/>
     </template>
     <template v-else>
       There is no photos
     </template>
-  </section>  
+  </section>
 </template>
 
 <script>

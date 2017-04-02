@@ -1,4 +1,5 @@
 export default {
+
   init(state, user) {
     state.user = user;
   },
@@ -7,14 +8,20 @@ export default {
     state.user = null;
     state.photos = [];
     state.albums = [];
-    state.current_album = null;
+    state.currentAlbum = null;
+    state.currentPhoto = null;
   },
   
-  photos(state, photos) {
+  setPhotos(state, photos) {
     state.photos = photos;
   },
   
-  direction(state, direction) {
+  changeDirection(state, direction) {
     state.direction = direction;
   },
+
+  setCurrentPhoto(state, photo) {
+    state.currentPhoto = photo;
+  },
+  
 };

@@ -1,10 +1,11 @@
 <template>
   <div id="app" class="application container">
-    <welcome v-if="!loggedIn" @login="onLogin"/>
+    <welcome v-if="!loggedIn" />
     <template v-else>
       <template v-if="loggedIn">
-        <navbar @logout="onLogout"/>
-        <gallery/>
+        <navbar />
+        <photo-view v-if="selectedPhoto" />
+        <gallery v-else />
       </template>
       <template v-else>
         <a @click.prevent="onLogin" href="#">Login</a>
@@ -22,18 +23,18 @@ export default {
     loggedIn() {
       return this.$store.state.user !== null;
     },
+    selectedPhoto() {
+      return this.$store.state.currentPhoto;
+    }
   },
   methods: {
     onLogin: function () {
       this.$store.dispatch('login');
     },
-    onLogout() {
-      this.$store.dispatch('logout');
-    }
   },
   created: function () {
-    this.$store.dispatch('getStatus');
-  },  
+    this.$store.dispatch('initApplication');
+  },
 }
 </script>
 

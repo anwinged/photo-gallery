@@ -2,30 +2,50 @@ import VkGallery from '../services/VkGallery.js';
 
 export default {
 
-  login({ commit }) {
-    VkGallery.login().then((u) => {
-      console.log(u);
-      commit('init', u);
-    });
+  async initApplication({ commit, dispatch }) {
+    await dispatch('getStatus');
+    await dispatch('getPhotos');
   },
 
-  logout({ commit }) {
-    VkGallery.logout().then(() => {
-      commit('clear');
-    });
+  async login({ commit, dispatch }) {
+    commit('init', await VkGallery.login());
+    await dispatch('getPhotos');
   },
 
-  getStatus({ commit }) {
-    VkGallery.getStatus().then((u) => {
-      commit('init', u);
-    });
+  async logout({ commit }) {
+    await VkGallery.logout();
+    commit('clear');
   },
 
-  getPhotos({ commit }) {
-    VkGallery.getPhotos().then((photos) => {
-      console.log(photos);
-      commit('photos', photos);
-    });
+  async getStatus({ commit }) {
+    commit('init', await VkGallery.getStatus());
+  },
+
+  async getPhotos({ commit }) {
+    commit('setPhotos', await VkGallery.getPhotos());
+  },
+
+  selectPhoto({ commit, state }, photo) {
+    const founded = state.photos.find(p => p.src === photo.src);
+    if (founded) {
+      commit('setCurrentPhoto', founded);
+    }
+  },
+
+  dropSelection({ commit }) {
+    commit('setCurrentPhoto', null);
+  },
+
+  goToNextPhoto({ commit, state, getters }) {
+      const current = state.currentPhoto;
+      if (current === null) {
+        return;
+      }
+
+      const photos = getters.orderedPhotos;
+      const currentIndex = photos.findIndex(p => p.src === current.src);
+      const count = photos.length;
+      commit('setCurrentPhoto', photos[(currentIndex + 1) % count]);
   },
 
 }

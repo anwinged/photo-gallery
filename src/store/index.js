@@ -12,7 +12,8 @@ const store = new Vuex.Store({
     user: null,
     photos: [],
     albums: [],
-    current_album: null,
+    currentAlbum: null,
+    currentPhoto: null,
     direction: ORDER_LIKE,
   },  
   getters: {
@@ -27,13 +28,7 @@ const store = new Vuex.Store({
     },
   },
   mutations,
-  actions
-});
-
-store.watch(s => s.user, function (user) {
-  if (user !== null) {
-    store.dispatch('getPhotos');
-  }
+  actions,
 });
 
 export default store;

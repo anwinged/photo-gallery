@@ -2,7 +2,7 @@
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#" @click.prevent>Gallery</a>
+        <a class="navbar-brand" href="#" @click.prevent="onBrandClick">Gallery</a>
       </div>
       <ul class="nav navbar-nav">
         <li :class="{ active: byLikes }"><a href="#" @click.prevent="orderByLikes">by likes</a></li>
@@ -29,15 +29,18 @@ export default {
     },
   },
   methods: {
+    onBrandClick() {
+      this.$store.dispatch('dropSelection');
+    },
     orderByTime() {
-      this.$store.commit('direction', ORDER_TIME);
+      this.$store.commit('changeDirection', ORDER_TIME);
     },
     orderByLikes() {
-      this.$store.commit('direction', ORDER_LIKE);
+      this.$store.commit('changeDirection', ORDER_LIKE);
     },
     onExit() {
-      this.$emit('logout');
-    }
+      this.$store.dispatch('logout');
+    },
   }
 }
 </script>

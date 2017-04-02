@@ -14,7 +14,6 @@ class VkGallery
   login() {
     return new Promise((resolve, reject) => {
       const onSuccess = (answer) => {
-        console.log('login', answer);
         if (answer.session && answer.status === 'connected') {
           this.user_id = answer.session.mid;
           resolve(answer.session.mid);

@@ -18,8 +18,10 @@
 <script>
 export default {
   name: 'photo-view',
-  props: ['photo'],
   computed: {
+    photo() {
+      return this.$store.state.currentPhoto;
+    },
     title() {
       return this.photo.comment || 'Noname';
     },
@@ -28,12 +30,12 @@ export default {
     },
   },
   methods: {
-    onClose() {
-      this.$emit('close');
-    },
     onNext() {
-      this.$emit('next');
+      this.$store.dispatch('goToNextPhoto');
     },
+    onClose() {
+      this.$store.dispatch('dropSelection');
+    },    
   }
 }
 </script>

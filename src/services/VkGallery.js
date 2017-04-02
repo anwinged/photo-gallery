@@ -51,46 +51,38 @@ class VkGallery
     })
   }
 
-  getPhotos(count = 50) {
-    return new Promise((resolve, reject) => {
-      if (this.user_id === null) {
-        reject();
-      }
-      const params = { owner_id: this.user_id, extended: 1, skip_hidden: 1, count };
-      VK.Api.call('photos.getAll', params, (answer) => {
-          if (answer.response) {
-            resolve(answer.response.slice(1).map(p => this._createPhoto(p)));
-          } else {
-            reject(answer);
-          }
-      });     
-    });
+  async getPhotos(count = 50) {
+    const params = { extended: 1, skip_hidden: 1, count };
+    const response = await this._call('photos.getAll', params);
+
+    return response.slice(1).map(p => this._createPhoto(p));
   }
 
-  getAlbums(count = 3) {
-    return new Promise((resolve, reject) => {
-      if (this.user_id === null) {
-        reject();
-      }
-      const params = { owner_id: this.user_id, need_system: 0, count };
-      VK.Api.call('photos.getAlbums', params, (answer) => {
-        if (answer.response) {
-          resolve(answer.response.map(a => this._createAlbum(a)));
-        }
-      });
-    });
+  async getAlbums(count = 3) {
+    const params = { need_system: 0, count };
+    const response = await this._call('photos.getAlbums', params);
+
+    return response.map(a => this._createAlbum(a));
   }
 
-  getAlbumPhotos(albumId, count = 50) {
+  async getAlbumPhotos(albumId, count = 50) {
+    const params = { album_id: albumId, extended: 1, rev: 1, count };
+    const response = await this._call('photos.get', params);
+
+    return response.map(p => this._createPhoto(p));
+  }
+
+  async _call(name, params = {}) {
     return new Promise((resolve, reject) => {
       if (this.user_id === null) {
         reject();
       }
-      const params = { owner_id: this.user_id, album_id: albumId, extended: 1, rev: 1, count };
-      VK.Api.call('photos.get', params, (answer) => {
+      const callParams = Object.assign({}, { owner_id: this.user_id }, params);
+      VK.Api.call(name, callParams, (answer) => {
         if (answer.response) {
-          resolve(answer.response.map(p => this._createPhoto(p)));
+          resolve(answer.response);
         } else {
+          console.error('VK API Error', answer);
           reject(answer);
         }
       });

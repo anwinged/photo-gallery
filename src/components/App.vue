@@ -1,16 +1,11 @@
 <template>
   <div id="app" class="application container">
-    <welcome v-if="!loggedIn" />
-    <template v-else>
-      <template v-if="loggedIn">
-        <navbar />
-        <photo-view v-if="selectedPhoto" />
-        <gallery v-else />
-      </template>
-      <template v-else>
-        <a @click.prevent="onLogin" href="#">Login</a>
-      </template>
+    <template v-if="loggedIn">
+      <navbar />
+      <photo-view v-if="selectedPhoto" />
+      <gallery v-else />
     </template>
+    <welcome v-else />
   </div>
 </template>
 
@@ -26,11 +21,6 @@ export default {
     selectedPhoto() {
       return this.$store.state.currentPhoto;
     }
-  },
-  methods: {
-    onLogin: function () {
-      this.$store.dispatch('login');
-    },
   },
   created: function () {
     this.$store.dispatch('initApplication');

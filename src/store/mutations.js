@@ -14,8 +14,13 @@ export default {
   
   setPhotos(state, photos) {
     state.photos = photos;
+    state.currentPhoto = null;
   },
   
+  setAlbums(state, albums) {
+    state.albums = albums;
+  },
+
   changeDirection(state, direction) {
     state.direction = direction;
   },
@@ -23,5 +28,8 @@ export default {
   setCurrentPhoto(state, photo) {
     state.currentPhoto = photo;
   },
-  
+
+  setCurrentAlbum(state, album) {
+    state.currentAlbum = album;
+  }
 };

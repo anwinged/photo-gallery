@@ -15,7 +15,7 @@
 export default {
   methods: {
     onLoginClick() {
-      this.$emit('login');
+      this.$store.dispatch('login');
     }
   }
 }

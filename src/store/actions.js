@@ -4,12 +4,18 @@ export default {
 
   async initApplication({ commit, dispatch }) {
     await dispatch('getStatus');
-    await dispatch('getPhotos');
+    await Promise.all([
+      dispatch('getPhotos'),
+      dispatch('getAlbums'),
+    ]);
   },
 
   async login({ commit, dispatch }) {
     commit('init', await VkGallery.login());
-    await dispatch('getPhotos');
+    await Promise.all([
+      dispatch('getPhotos'),
+      dispatch('getAlbums'),
+    ]);
   },
 
   async logout({ commit }) {
@@ -23,6 +29,22 @@ export default {
 
   async getPhotos({ commit }) {
     commit('setPhotos', await VkGallery.getPhotos());
+  },
+
+  async getAlbums({ commit }) {
+    commit('setAlbums', await VkGallery.getAlbums());
+  },
+
+  async getAlbumPhotos({ commit }, albumId) {
+    commit('setPhotos', await VkGallery.getAlbumPhotos(albumId));
+  },
+
+  async selectAlbum({ commit, state, dispatch }, albumId) {
+    const founded = state.albums.find(a => a.id === albumId);
+    if (founded) {
+      commit('setCurrentAlbum', founded);
+    }
+    await dispatch('getAlbumPhotos', albumId);
   },
 
   selectPhoto({ commit, state }, photo) {
